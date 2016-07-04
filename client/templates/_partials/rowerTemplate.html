@@ -1,0 +1,96 @@
+<template name="rowerTemplate">
+	{{name}}
+	<table class="table table-condensed" style="border-collapse:collapse;">
+		<thead>
+		  <tr>
+		  	
+			<th>Date</th>
+			<th>Distance</th>
+			<th>Partial</th>
+			<th>time</th>
+			<th>SPM</th>
+			<th>Watts</th>
+		  </tr>
+		</thead>
+		<tbody>
+
+		{{#each workouts}}
+			<script type="text/javascript">
+
+			 // console.log({{this}});
+			</script>
+			
+		  <tr data-toggle="collapse" data-target="#demo{{totalDistance}}" class="accordion-toggle"> 
+			<td>{{formatDate date}}</td>
+			<td>{{totalDistance}}</td>
+			<td>{{formatTime averagePartial}}</td>
+			<td>{{formatTime totalTime}}</td>
+			<td>{{averageSPM}}</td>
+			<td>{{averageWatts}}</td>
+		  </tr>
+			<tr>
+			  <td colspan="6" class="hiddenRow">
+			  	<div id="demo{{totalDistance}}" class="accordian-body collapse row">
+			  		<div class = "col-xs-1"></div>
+			  		<div class="col-xs-10">
+			  		<table class="table table-condensed" style="border-collapse:collapse;">
+				  		<thead>
+							<tr>
+								<th>Time</th>
+								<th>SPM</th>
+								<th>Partial</th>
+								<th>Watts</th>
+								<th>Average calories</th>
+								<th>Distance</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each splits}}
+								<tr>
+									<td>{{formatTime time}}</td>
+									<td>{{SPM}}</td>
+									<td>{{formatTime partial}}</td>
+									<td>{{watts}}</td>
+									<td>{{calories}}</td>
+									<td>{{distance}}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					</div>
+			  		<div class = "col-xs-1"></div>
+
+			  	</div>
+
+			  </td>
+			</tr>
+		{{/each}}
+		</tbody>
+	 </table>
+<!-- 	<table class="table table-hover">
+	<thead>
+	  <tr>
+		<th>Date</th>
+		<th>Distance</th>
+		<th>Partial</th>
+		<th>time</th>
+		<th>SPM</th>
+		<th>Watts</th>
+	  </tr>
+	</thead>
+	<tbody>
+	  <tr data-toggle="collapse" data-target="#demo{{totalDistance}}" class="accordion-toggle"> 
+		<td>{{date}}</td>
+		<td>{{totalDistance}}</td>
+		<td>{{averagePartial}}</td>
+		<td>{{totalTime}}</td>
+		<td>{{averageSPM}}</td>
+		<td>{{averageWatts}}</td>
+	  </tr>
+		<tr>
+			<td colspan="6" class="hiddenRow"><div id="demo{{totalDistance}}" class="accordian-body collapse">Demo2</div></td>
+		</tr>
+	  
+	</tbody>
+  </table> -->
+</template>

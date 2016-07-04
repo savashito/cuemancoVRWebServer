@@ -1,0 +1,40 @@
+<template name="history">
+
+<!-- <form action="uploadlog" method="post" target="_blank">
+  First name: <input type="text" name="fname" ><br>
+  Last name: <input type="text" name="lname" value ='f' id='s'><br>
+  
+
+  <input type="submit" value="Submit">
+</form> -->
+
+
+<input type="file" name="displayImage" id="test">
+
+ <!-- {{> dropzone url='uploadlog' }} -->
+
+<!-- <form class="box has-advanced-upload" method="post" action="" enctype="multipart/form-data">
+  <div class="box__input">
+    <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+    <label for="file"><strong>Choose a file</strong>
+      <span class="box__dragndrop"> or drag it here</span>.
+    </label>
+    <button class="box__button" type="submit">Upload</button>
+  </div>
+  <div class="box__uploading">Uploading&hellip;</div>
+  <div class="box__success">Done!</div>
+  <div class="box__error">Error! <span></span>.</div>
+</form> -->
+
+     {{#each  rower}}
+        <!-- {{name}} -->
+        {{> rowerTemplate this}}
+        <!-- {{this.name}} -->
+        <!-- {{> rowerWorkoutHead}} -->
+        
+      {{/each}}
+
+
+
+
+</template>

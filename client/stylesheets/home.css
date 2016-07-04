@@ -1,0 +1,47 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+
+.loading-message {
+  color: #fff;
+  font-size: 25px;
+  font-weight: 300;
+  font-family: sans-serif;
+}
+
+.sk-spinner-rotating-plane.sk-spinner {
+  background-color: #fff;
+}
+
+.cover{
+  color: rgb(255, 255, 255);
+  position: relative;
+  min-height: 680px;
+  padding-top:80px;
+  background: url("/images/splash/rocket-shop.jpg") no-repeat scroll 0px 100% / cover transparent;
+  border-bottom:9px solid #7b9ed0;
+}
+
+.jumbotron{
+  background: none;
+}
+.jumbotron h1{
+  font-size: 63px;
+  text-align:center;
+  margin:0
+}
+.jumbotron p.lead {
+  font-family:"Georgia";
+  text-align:center;
+  font-size:36px;
+  font-style:italic;
+  color:#ccc;
+
+}
