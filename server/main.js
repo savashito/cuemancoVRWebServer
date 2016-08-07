@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import http from 'http';
 import socket_io from 'socket.io';
 // import Fiber from 'fiber';
-const PORT = 80;
+const PORT = 8080;
 
 var Fiber = require('fibers');
 
