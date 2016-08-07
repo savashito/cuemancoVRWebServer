@@ -30,3 +30,5 @@ accounts-facebook
 service-configuration
 joncursi:socket-io-client
 yuukan:streamy
+velocity:html-reporter
+mike:mocha

@@ -1,100 +1,89 @@
 import { Meteor } from 'meteor/meteor';
-
-// fs = Npm.require('fs');
-// fs.readFile('http://localhost:3000/logrodrigo.csv',  function (err,data) {
-// console.log(data);
-// console.log(err);
-
-// });
-
 import http from 'http';
 import socket_io from 'socket.io';
-
+// import Fiber from 'fiber';
 const PORT = 80;
+
+var Fiber = require('fibers');
+
+var SocketMsgCallback = function(name,socket){
+	return function(rowerJSON){
+		SocketIOUtil.msgQueue.push({type:name,payload:rowerJSON,socket:socket})
+	}
+}
+
+// Tracker.autorun(function() {
+//   if (Meteor.userId()) {
+//   	console.log('You login!');
+//     // do something when they've just logged in.
+//   }
+// });
+
+
 Meteor.startup(() => {
+	Fiber(SocketIOUtil.SocketIOCallbackLoop).run()
 	
 	const server = http.createServer();
-  const io = socket_io(server);
+	const io = socket_io(server);
 
-  let counter = 0;
-
-  // New client
-  io.on('connection', function(socket) {
-    // console.log('new socket client');
-    socket.on('ergData', function (ergData) {
-    	// socket.emit('server_ergData',ergData);
-    	console.log(ergData);
-  	});
- socket.on('connectToWorkout', function(rowerJSON){
-    var rower = RowerController.getRower(rowerJSON.id);
-    rower.setSocket(socket);
-    // add the workout if non-existing or get current workout
-    var workout = WorkoutController.getWorkout(rower);
-    workout.addRower(rower);
-    // Save workout changes to db
-    
-    workout.update();
-    // rower.update(rowerJSON);
-    // workout.save();
-    // rowerJSON = socket;
-
-
-    // var workout = rower.workout;
-    // workout doesn't exist
-    // workout = {} or undefined
-    // workout = {ditance:20000,time:60*60}
-    // connect to existing workout
-    // workout = {id=123}
-
-    
+	// New client
+	io.on('connection', function(socket) {
+		console.log("Human connected ");
+		socket.on('connectToWorkout', SocketMsgCallback('connectToWorkout',socket));
+		socket.on('createWorkout', SocketMsgCallback('createWorkout',socket))
+		socket.on('login', SocketMsgCallback('login',socket));
+		socket.on('createRower',SocketMsgCallback('createRower',socket))
+		socket.on('startWorkout',SocketMsgCallback('startWorkout',socket))
+		socket.on('setLane',SocketMsgCallback('setLane',socket))
+		socket.on('ergData',SocketMsgCallback('ergData',socket))
+		/*
+		socket.on('udpateRower',function(rowerJSON){
+			var rower = RowerController.getRower(rowerJSON);
+			rower.update(rowerJSON);
+		});*/
+		/*
+		socket.on('assignErgToRower',function(JSON){
+			RowerController.assignErgToRower(JSON.rower,JSON.erg);
+		});
+		*/
 
 
-    /*
-    if(listCurrentWorkouts[workout.id]==undefined):
-      listCurrentWorkouts[workout.id] = WorkoutUtil.createWorkout(workout);
-    workout = listCurrentWorkouts[workout.id];
-    */
-    // add rower to workout
-  });
-  socket.on('udpateRower',function(rowerJSON){
 
-    var rower = RowerController.getRower(rowerJSON);
-    rower.update(rowerJSON);
-  });
-  socket.on('assignErgToRower',function(JSON){
-    RowerController.assignErgToRower(JSON.rower,JSON.erg);
-    // var erg = JSON.erg;
+	// socket.on('ergData', function (ergData) {
+	// 	console.log(ergData);
+	// 	return;
+	// 	// get the rower
+	// 	// get workout and add entry
 
-  });
+	// 	var rower = Rowers.getByErgId(ergData.pyid);
+	// 	rower.addSplit(ergData);
+	// 	var workout = WorkoutManager.activeWorkouts.getByRower(rower);
+	// 	workout.broadcastToPeers(rower, ergData);
 
-  socket.on('startWorkout',function(rowerJSON){
-
-  });
-
-  socket.on('ergData', function (ergData) {
-    socket.emit('server_ergData',ergData);
-    // console.log(ergData);
-    /*
-    console.log(ergData);
-    rower = RowerController.getRowerFromErgId(ergData.id);
-    workout = rower.getActiveWorkout();
-    
-    // Broadcast to users the info we just got
-    workout.broadcastToPeers(rower, ergData)
-    // Save the data to the user 
-    rower.update(ergData);
-    */
-  });
+	// 	/*
+	// 	rower = RowerController.getRowerFromErgId(ergData.id);
+	// 	workout = rower.getActiveWorkout();
+		
+	// 	// Broadcast to users the info we just got
+	// 	workout.broadcastToPeers(rower, ergData)
+	// 	// Save the data to the user 
+	// 	rower.update(ergData);*/
+		
+	// });
 
 
-  	
-  });
-  // Start server
-  try {
-    server.listen(PORT);
-  } catch (e) {
-    console.error(e);
-  }
+
+	});
+	// Start server
+	try {
+		server.listen(PORT);
+	} catch (e) {
+		console.error(e);
+	}
+
+
+
+});
 
 
 	 // var socket = io('https://localhost');
@@ -115,11 +104,11 @@ Meteor.startup(() => {
 /*
 Streamy.onConnect(function(socket) {
 	console.log("Connected");
-  /*Tracker.autorun(function() {
-  //  var uid = Streamy.userId(socket); // uid will be null if the user is not logged in, otherwise, it will take the userId value
+	/*Tracker.autorun(function() {
+	//  var uid = Streamy.userId(socket); // uid will be null if the user is not logged in, otherwise, it will take the userId value
 
 //    console.log("New userId state for", Streamy.id(socket), uid);
-  });
+	});
 });*/
 
 /*
@@ -159,5 +148,3 @@ Streamy.onConnect(function(socket) {
 	}
 	console.log(output); // [ { foo: '1', bar: '2' } ]
 }*/
-
-});

@@ -1,0 +1,47 @@
+<template name = "workouts">
+
+<table class="table table-condensed" style="border-collapse:collapse;">
+		<thead>
+		  <tr> 	
+			<th>Name</th>
+			<th>Number of Participants</th>
+			<th>Id</th>
+		  </tr>
+		</thead>
+		<tbody>
+
+{{#each workouts}}
+ 		<tr data-toggle="collapse" data-target="#{{_id}}" class="accordion-toggle"> 
+			<td>{{name}}</td>
+			<td>{{_rowers.length}}</td>
+			<td>{{_id}}</td>
+		</tr>
+		<tr>
+			 <td colspan="6" class="hiddenRow">
+			  	<div id="{{_id}}" class="accordian-body collapse row">
+					<div class = "col-xs-1"></div>
+			  		<div class="col-xs-10">
+			  		<table class="table table-condensed" style="border-collapse:collapse;">
+				  		<thead>
+							<tr>
+								<th>Name</th><th>Lane</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#each _rowers}}
+								<tr>
+									<td>{{name}}</td>
+									<td>{{lane}}</td>
+								</tr>
+							{{/each}}
+						</tbody>
+					</table>
+					</div>
+					<div class = "col-xs-1"></div>
+				</div>
+			</td>
+		</tr>
+{{/each}}
+		</tbody>
+</table>
+</template>

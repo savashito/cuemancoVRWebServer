@@ -1,6 +1,6 @@
 ergCSC = undefined;
 
-var rowers = [{name:'rofddro'},{name:'sergio'}];
+// var rowers = [{name:'rofddro'},{name:'sergio'}];
 var Rower = function(name,workouts){
 
 }
