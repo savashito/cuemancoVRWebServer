@@ -33,10 +33,11 @@ var IOCallbacks = {
 		rower.setSocket(socket);
 		if(rower.isInWorkout()){
 			var workoutObj = rower.getActiveWorkout();
+			console.log("Rower is already in workout",workoutObj);
 			socket.emit('workoutCreatedFailed',{workoutId:workoutObj._id,workoutName:workoutObj.name});
 		}else{
 			var workoutObj = ActiveWorkouts.create(rowerJSON.workoutName,rower);
-			console.log(workoutObj);
+			console.log("Workout created suceessfully",workoutObj);
 			socket.emit('createWorkoutSuccess',{workoutId:workoutObj._id,workoutName:workoutObj.name});
 		}
 	},
