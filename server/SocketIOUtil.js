@@ -19,7 +19,11 @@ var SocketIOCallbackLoop = function(){
 		// sleep();
 	}
 }
-
+// add logging callback
+Accounts.onLogin(function(){
+	console.log("Logeado con exito");
+	IOCallbacks["login"](Meteor.user(),undefined);
+});
 
 
 var IOCallbacks = {
@@ -91,6 +95,7 @@ var IOCallbacks = {
 		var rower = Rowers.getByErgId(ergData.cid);
 		if(rower == undefined){
 			console.log("Error, unkonw erg");
+			return;
 		}
 		// console.log(ergData.cid,rower.name,rower.workouts);
 		
