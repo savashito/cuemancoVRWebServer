@@ -38,6 +38,9 @@ Meteor.startup(() => {
 		socket.on('startWorkout',SocketMsgCallback('startWorkout',socket))
 		socket.on('setLane',SocketMsgCallback('setLane',socket))
 		socket.on('ergData',SocketMsgCallback('ergData',socket))
+		socket.on('requestListWorkouts',SocketMsgCallback('requestListWorkouts',socket))
+		socket.emit('connected',{success:true});
+		// socket.emi
 		/*
 		socket.on('udpateRower',function(rowerJSON){
 			var rower = RowerController.getRower(rowerJSON);

@@ -88,6 +88,10 @@ var IOCallbacks = {
 			workoutManager.start();
 		}
 	},
+	'requestListWorkouts':function(rowerJSON,socket){
+		socket.emit('responseListWorkouts',{workouts:"just a test"});
+
+	},
 	'ergData': function (ergData,socket) {
 		console.log(ergData);
 		// get the rower
