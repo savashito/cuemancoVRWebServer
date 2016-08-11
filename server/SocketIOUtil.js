@@ -90,7 +90,8 @@ var IOCallbacks = {
 	},
 	'requestListWorkouts':function(rowerJSON,socket){
 		console.log("List workoust ");
-		socket.emit('responseListWorkouts',{workouts:"just a test"});
+		var wks = ActiveWorkouts.getAllSmall();
+		socket.emit('responseListWorkouts',{workouts:wks,length:wks.length});
 
 	},
 	'ergData': function (ergData,socket) {
